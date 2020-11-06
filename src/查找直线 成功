@@ -9,39 +9,6 @@ using namespace std;
 #include <opencv2/imgproc/types_c.h>
 #include<opencv2/opencv.hpp>
 
-
-int drawLine_fromvec4f(vector<Vec4f> lines, int lineType, Mat houghline_src1)
-{
-	Scalar color = Scalar(0,0,255);
-	Scalar color1 = Scalar(0,255,0);
-    int cntLine = 0;
-    cvtColor(houghline_src1,houghline_src1,CV_GRAY2BGR);
-	for (size_t i = 0; i < lines.size(); i++)
-	{
-        cntLine ++;
-		Vec4f plines = lines[i];  //一个plines里边是四个点一条直线    
-/* 		if(i == 2)
-		{
-			line(houghline_src1,Point(plines[0],plines[1]),Point(plines[2],plines[3]),color1,1,LINE_AA);	
-	//		line(rawImg,Point(plines[0],plines[1]),Point(plines[2],plines[3]),color1,1,LINE_AA);
-			cout << "第" << cntLine << "条线为：\t" << plines[0] << "," << plines[1] 
-       			 << "\t" << plines[2] << "," << plines[3] << endl;
-			continue;		
-		} */
-		//rawImg                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
-	   // line(houghline_dst,Point(plines[0],plines[1]),Point(plines[2],plines[3]),color,1,LINE_AA);
-        line(houghline_src1, Point(plines[0],plines[1]), Point(plines[2], 
-			 plines[3]), color, lineType,LINE_AA);
-		//line(rawImg,Point(plines[0],plines[1]),Point(plines[2],plines[3]),color,1,LINE_AA);
-
-        cout << "第" << cntLine << "条线为：\t" << plines[0] << "," << plines[1] 
-        << "\t" << plines[2] << "," << plines[3] << endl;
-	}
-	
-	return cntLine;
-	//return vec;
-}
-
 int main()
 {
 	Mat houghline_src1,houghline_gray_src,houghline_src2,houghline_dst;
@@ -81,8 +48,7 @@ int main()
 	最大间隔（能构成一条直线）  
 	*/
 	HoughLinesP(houghline_gray_src,lines,0.5,CV_PI/180,80,50.0,800.0);
-	drawLine_fromvec4f(lines, 1,  houghline_src1);
-	/* Scalar color = Scalar(0,0,255);
+	Scalar color = Scalar(0,0,255);
 	Scalar color1 = Scalar(0,255,0);
     int cntLine = 0;
     cvtColor(houghline_src1,houghline_src1,CV_GRAY2BGR);
@@ -105,7 +71,7 @@ int main()
 
         cout << "第" << cntLine << "条线为：\t" << plines[0] << "," << plines[1] 
         << "\t" << plines[2] << "," << plines[3] << endl;
-	} */
+	}
 
 	//测试DDA方法
 
